@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento de Serviço</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #ffe6f2, #fff);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s;
+            width: 300px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h1 {
+            color: #d5006d;
+            margin-bottom: 20px;
+        }
+
+        label {
+            color: #f789b5;
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+            text-align: left; /* Alinhamento à esquerda */
+        }
+
+        input, select, button {
+            background-color: #f8bbd0; 
+            color: #d5006d; 
+            border: 2px solid #d5006d;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100%; /* Mantém a largura total */
+            margin-bottom: 15px;
+            font-size: 16px;
+            transition: all 0.3s;
+            box-sizing: border-box; /* Inclui padding e border no total */
+        }
+
+        input:hover, select:hover, button:hover {
+            background-color: #d5006d;
+            color: white;
+            border-color: #c2185b;
+        }
+
+        button {
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .doutora-list {
+            display: none; 
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .show {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Estilo do modal */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 300px; 
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            button {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Agendamento de Serviço</h1>
+        <form id="informacoesForm">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" required>
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" required>
+            <label for="telefone">Telefone:</label>
+            <input type="tel" id="telefone" required>
+            <button type="button" id="proseguirBtn">Prosseguir</button>
+        </form>
+
+        <div class="doutora-list" id="doutoraList">
+            <label for="servicos">Escolha um serviço:</label>
+            <select id="servicos">
+                <option value="depilacao">Depilação</option>
+                <option value="manicure">Manicure</option>
+                <option value="limpeza_pele">Limpeza de Pele</option>
+                <option value="massagem">Massagem</option>
+            </select>
+            <label for="doutoras">Escolha uma doutora:</label>
+            <select id="doutoras">
+                <option value="doutora1">Doutora Maya</option>
+                <option value="doutora2">Doutora Ana</option>
+            </select>
+            <button type="button" id="finalizarBtn">Finalizar Agendamento</button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Sua consulta foi marcada!</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('proseguirBtn').addEventListener('click', function() {
+            const doutoraList = document.getElementById('doutoraList');
+            doutoraList.classList.add('show');
+            document.getElementById('informacoesForm').style.display = 'none';
+        });
+
+        document.getElementById('finalizarBtn').addEventListener('click', function() {
+            const modal = document.getElementById("myModal");
+            modal.style.display = "block";
+        });
+
+        const span = document.getElementsByClassName("close")[0];
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
